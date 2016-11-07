@@ -1,0 +1,78 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "id"
+        },
+        {
+            "relationshipName": "categories",
+            "otherEntityName": "categories",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "category",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "services"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "locationZip",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "10000",
+            "fieldValidateRulesMax": "99999"
+        },
+        {
+            "fieldName": "datePosted",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "reportedCount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "photoPath",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "expirationDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20161107044202",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "services",
+    "pagination": "pagination"
+}
