@@ -35,13 +35,10 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="locationZip"><span>Location Zip</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="datePosted"><span>Date Posted</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="reportedCount"><span>Reported Count</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="photoPath"><span>Photo Path</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="expirationDate"><span>Expiration Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="completed"><span>Completed</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="customer.name"><span>Customer</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -51,14 +48,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="services in vm.services track by services.id">
-                    <td><a ui-sref="services-detail({id:services.id})">{{services.id}}</a></td>
-                    <td>{{services.name}}</td>
+                    <td><a ui-sref="services-detail({id:services.id})">{{services.name}}</a></td>
                     <td>{{services.description}}</td>
                     <td>{{services.locationZip}}</td>
-                        <td>{{services.datePosted | date:'mediumDate'}}</td>
-                    <td>{{services.reportedCount}}</td>
-                    <td>{{services.photoPath}}</td>
-                        <td>{{services.expirationDate | date:'mediumDate'}}</td>
+                    <td>{{services.datePosted | date:'mediumDate'}}</td>
+                    <td>{{services.expirationDate | date:'mediumDate'}}</td>
                     <td>{{services.completed}}</td>
                     <td>
                         <a ui-sref="customer-detail({id:services.customer.id})">{{services.customer.name}}</a>

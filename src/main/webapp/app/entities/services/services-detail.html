@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span>Services</span> {{vm.services.id}}</h2>
+    <h2><span>Service:</span> {{vm.services.name}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
@@ -53,7 +53,7 @@
     </button>
 
     <button type="button" ui-sref="services-detail.edit({id:vm.services.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-xs hidden-sm"> Edit</span>
+        <span class="glyphicon glyphicon-usd"></span>
+        <span class="hidden-xs hidden-sm">Place Bid</span>
     </button>
 </div>

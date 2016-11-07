@@ -9,7 +9,7 @@
 
     function ServicesController ($scope, $state, Services, ServicesSearch, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
-        
+
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
@@ -51,6 +51,11 @@
                 vm.queryCount = vm.totalItems;
                 vm.services = data;
                 vm.page = pagingParams.page;
+                for(var i = 0; i < vm.totalItems; i++) {
+                    if(vm.services[i].completed == 0) {
+                        vm.services[i].completed = "Not Completed";
+                    }
+                }
             }
             function onError(error) {
                 AlertService.error(error.data.message);
