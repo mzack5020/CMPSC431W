@@ -12,7 +12,17 @@
         <div class="col-md-8">
             <h1>Services</h1>
 
-
+            <div class="table-responsive">
+                <div class="jh-table table table-striped text-align">
+                    <div ng-repeat="services in vm.services track by services.id">
+                        <div class="rBody">
+                            <p>Service: <a ui-sref="services-detail({id:services.id})">{{services.name}}</a></p>
+                            <p>Expires: {{services.expirationDate}}</p>
+                            <p>Posted: {{services.datePosted | date:'mediumDate'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div ng-switch="vm.isAuthenticated()">
                 <div class="alert alert-warning" ng-switch-when="false">
