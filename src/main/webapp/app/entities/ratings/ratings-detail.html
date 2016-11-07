@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Ratings</span> {{vm.ratings.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Rating</span></dt>
+        <dd>
+            <span>{{vm.ratings.rating}}</span>
+        </dd>
+        <dt><span>Comments</span></dt>
+        <dd>
+            <span>{{vm.ratings.comments}}</span>
+        </dd>
+        <dt><span>Customer</span></dt>
+        <dd>
+            <a ui-sref="customer-detail({id:vm.ratings.customer.id})">{{vm.ratings.customer.name}}</a>
+        </dd>
+        <dt><span>Contractor</span></dt>
+        <dd>
+            <a ui-sref="contractor-detail({id:vm.ratings.contractor.id})">{{vm.ratings.contractor.name}}</a>
+        </dd>
+        <dt><span>Services</span></dt>
+        <dd>
+            <a ui-sref="services-detail({id:vm.ratings.services.id})">{{vm.ratings.services.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="ratings-detail.edit({id:vm.ratings.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

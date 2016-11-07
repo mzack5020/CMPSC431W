@@ -1,0 +1,63 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ratings"
+        },
+        {
+            "relationshipName": "contractor",
+            "otherEntityName": "contractor",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ratings"
+        },
+        {
+            "relationshipName": "services",
+            "otherEntityName": "services",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ratings"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "rating",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0.0",
+            "fieldValidateRulesMax": "5.0"
+        },
+        {
+            "fieldName": "comments",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20161107051211",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "ratings",
+    "pagination": "pagination"
+}
