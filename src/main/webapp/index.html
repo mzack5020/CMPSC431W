@@ -13,24 +13,39 @@
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <!-- endinject -->
     <!-- endbuild -->
+    <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
+<link rel="stylesheet" href="" id="bootswatch-css" title="Default">
+
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
 </head>
-<body ng-app="eLancerApp" ng-strict-di>
+<body ng-app="eLancerApp" ng-strict-di="">
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
+    <div ui-view="navbar" ng-cloak=""></div>
     <div class="container">
         <div class="well" ui-view="content">
             <!-- Angular views -->
         </div>
 
-        <div class="footer" ng-cloak>
-            <p>Copyright © 2016 eLancer. All Rights Reserved.</p>
-        </div>
+        <div class="footer" ng-cloak="">
+            <p>Copyright &#xA9; 2016 eLancer. All Rights Reserved.</p>
+            <div ng-controller="BootswatchController as vm" id="bootswatch-theme-switcher" uib-dropdown="" class="dropup pull-right">
+                    <a class="btn btn-default dropdown-toggle" uib-dropdown-toggle="">
+                        <span class="glyphicon glyphicon-adjust"></span>
+                        <span class="hidden-tablet" translate="bootswatch.themeSelector">Theme</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" uib-dropdown-menu="">
+                        <li class="theme-link" ng-repeat="theme in vm.themes">
+                            <a href="" jh-switch-theme="theme">{{theme.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
     </div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
@@ -102,6 +117,10 @@
     <script src="app/entities/ratings/ratings.service.js"></script>
     <script src="app/entities/ratings/ratings.search.service.js"></script>
     <script src="app/entities/ratings/ratings.controller.js"></script>
+    <script src="app/entities/profile/profile-service-detail.controller.js"></script>
+    <script src="app/entities/profile/profile.state.js"></script>
+    <script src="app/entities/profile/profile.service.js"></script>
+    <script src="app/entities/profile/profile.controller.js"></script>
     <script src="app/entities/entity.state.js"></script>
     <script src="app/entities/customer/customer-dialog.controller.js"></script>
     <script src="app/entities/customer/customer-detail.controller.js"></script>
@@ -131,10 +150,6 @@
     <script src="app/entities/bids/bids.service.js"></script>
     <script src="app/entities/bids/bids.search.service.js"></script>
     <script src="app/entities/bids/bids.controller.js"></script>
-    <script src="app/entities/profile/profile.controller.js"></script>
-    <script src="app/entities/profile/profile.state.js"></script>
-    <script src="app/entities/profile/profile.service.js"></script>
-    <script src="app/entities/profile/profile-service-detail.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>
@@ -148,10 +163,14 @@
     <script src="app/components/util/base64.service.js"></script>
     <script src="app/components/login/login.service.js"></script>
     <script src="app/components/login/login.controller.js"></script>
+    <script src="app/components/interceptor/bootswatch.interceptor.js"></script>
     <script src="app/components/form/show-validation.directive.js"></script>
     <script src="app/components/form/pagination.constants.js"></script>
     <script src="app/components/form/minbytes.directive.js"></script>
     <script src="app/components/form/maxbytes.directive.js"></script>
+    <script src="app/components/bootswatch/bootswatch.service.js"></script>
+    <script src="app/components/bootswatch/bootswatch.directive.js"></script>
+    <script src="app/components/bootswatch/bootswatch.controller.js"></script>
     <script src="app/components/alert/alert-error.directive.js"></script>
     <script src="app/components/alert/alert.service.js"></script>
     <script src="app/components/alert/alert.directive.js"></script>
