@@ -1,6 +1,63 @@
+# CMPSC 431W - Pennsylvania State University
+
+This application was designed in accordance to the guidelines and regulations provided by the CMPSC 431W Capstone course offered at Pennslyvania State University - University Park Campus.
+
 # eLancer
 
+eLancer is the modern way of obtaining obscure, "not-your-everyday" services. Instead of having to go through phone books or other more cumbersome services, eLancer provides a modern, more convenient approach to discovering businesses for your need. 
+
+Styled like eBay, customers can post services needed. These services can range from plumbing to designing websites. Once a service is posted, contractors can monitor and find the services they want to take on and bid on them, just like an auction on eBay. 
+
+The customer then picks the contractor they want; the contractors also have ratings like Angie's List which makes them accountable and which gives customer's ease of mind when picking a contractor.
+
 This application was generated using JHipster 3.10.0, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v3.10.0](https://jhipster.github.io/documentation-archive/v3.10.0).
+
+# Technology stack on the client side
+Single Web page application:
+
+Responsive Web Design
+HTML5 Boilerplate
+Twitter Bootstrap
+AngularJS
+Compatible with IE9+ and modern browsers
+Full internationalization support with Angular Translate
+Optional Sass support for CSS design
+Optional WebSocket support with Spring Websocket
+With the great Yeoman development workflow:
+
+Easy installation of new JavaScript libraries with Bower
+Build, optimization and live reload with Gulp.js
+Testing with Karma and PhantomJS
+And what if a single Web page application isn’t enough for your needs?
+
+Support for the Thymeleaf template engine, to generate Web pages on the server side
+
+# Technology stack on the server side
+
+A complete Spring application:
+
+Spring Boot for easy application configuration
+Maven or Gradle configuration for building, testing and running the application
+“development” and “production” profiles (both for Maven and Gradle)
+Spring Security
+Spring MVC REST + Jackson
+Optional WebSocket support with Spring Websocket
+Spring Data JPA + Bean Validation
+Database updates with Liquibase
+Elasticsearch support if you want to have search capabilities on top of your database
+MongoDB support if you’d rather use a document-oriented NoSQL database instead of JPA
+Cassandra support if you’d rather use a column-oriented NoSQL database instead of JPA
+Kafka support if you want to use a publish-subscribe messaging system
+Ready to go into production:
+
+Monitoring with Metrics
+Caching with ehcache (local cache) or hazelcast (distributed cache)
+Optional HTTP session clustering with hazelcast
+Optimized static resources (gzip filter, HTTP cache headers)
+Log management with Logback, configurable at runtime
+Connection pooling with HikariCP for optimum performance
+Builds a standard WAR file or an executable JAR file
+Support for all major cloud providers: AWS, CloudFoundry, Heroku, Kubernetes, Docker…
 
 ## Development
 
@@ -82,10 +139,6 @@ Then run:
 
 For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`yo jhipster:docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 
-## Continuous Integration (optional)
-
-To set up a CI environment, consult the [Setting up Continuous Integration][] page.
-
 [JHipster Homepage and latest documentation]: https://jhipster.github.io
 [JHipster 3.10.0 archive]: https://jhipster.github.io/documentation-archive/v3.10.0
 
@@ -93,7 +146,6 @@ To set up a CI environment, consult the [Setting up Continuous Integration][] pa
 [Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v3.10.0/docker-compose
 [Using JHipster in production]: https://jhipster.github.io/documentation-archive/v3.10.0/production/
 [Running tests page]: https://jhipster.github.io/documentation-archive/v3.10.0/running-tests/
-[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v3.10.0/setting-up-ci/
 
 
 [Node.js]: https://nodejs.org/
