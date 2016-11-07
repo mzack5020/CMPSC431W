@@ -7,9 +7,15 @@
                 <div class="alert alert-success text-center" ng-switch-when="true">
                     <h3>Welcome, {{vm.account.firstName}}</h3>
                 </div>
+                <div class="alert alert-warning" ng-switch-when="false">
+                    Already have an account? <a class="alert-link" href="" ng-click="vm.login()">Sign In</a>
+                </div>
+                <div class="alert alert-warning" ng-switch-when="false">
+                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+                </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 text-center">
             <h1>Services</h1>
 
             <div class="table-responsive">
@@ -23,17 +29,6 @@
                     </div>
                 </div>
             </div>
-
-            <div ng-switch="vm.isAuthenticated()">
-                <div class="alert alert-warning" ng-switch-when="false">
-                    <a class="alert-link" href="" ng-click="vm.login()">Sign In</a>
-                </div>
-
-                <div class="alert alert-warning" ng-switch-when="false">
-                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

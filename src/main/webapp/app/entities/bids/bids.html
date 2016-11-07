@@ -35,7 +35,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="amount"><span>Amount</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="services.name"><span>Services</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="contractor.name"><span>Contractor</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -44,8 +43,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="bids in vm.bids track by bids.id">
-                    <td><a ui-sref="bids-detail({id:bids.id})">{{bids.id}}</a></td>
-                    <td>{{bids.amount}}</td>
+                    <td><a ui-sref="bids-detail({id:bids.id})">{{bids.amount}}</a></td>
                     <td>
                         <a ui-sref="services-detail({id:bids.services.id})">{{bids.services.name}}</a>
                     </td>

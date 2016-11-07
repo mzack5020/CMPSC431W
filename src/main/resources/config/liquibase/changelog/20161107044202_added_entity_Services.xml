@@ -24,41 +24,41 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="description" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="location_zip" type="integer">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="date_posted" type="date">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="reported_count" type="integer">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="photo_path" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="expiration_date" type="date">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="completed" type="bit">
                 <constraints nullable="true" />
             </column>
                         <column name="customer_id" type="bigint">
-                <constraints unique="true" nullable="false" />
+                <constraints unique="false" nullable="false" />
             </column>            <column name="categories_id" type="bigint">
-                <constraints unique="true" nullable="false" />
+                <constraints unique="false" nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
 </databaseChangeLog>

@@ -5,9 +5,9 @@
         .module('eLancerApp')
         .controller('ServicesController', ServicesController);
 
-    ServicesController.$inject = ['$scope', '$state', 'Services', 'ServicesSearch', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    ServicesController.$inject = ['$scope', '$state', 'Services', 'ServicesSearch', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'Principal'];
 
-    function ServicesController ($scope, $state, Services, ServicesSearch, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function ServicesController ($scope, $state, Services, ServicesSearch, ParseLinks, AlertService, pagingParams, paginationConstants, Principal) {
         var vm = this;
 
         vm.loadPage = loadPage;
@@ -15,6 +15,9 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.$state = $state;
+        vm.isAuthenticated = Principal.isAuthenticated;
+        console.log(vm.$state);
         vm.clear = clear;
         vm.search = search;
         vm.loadAll = loadAll;

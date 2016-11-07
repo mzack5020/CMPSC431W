@@ -12,6 +12,13 @@
 
         vm.services = entity;
         vm.previousState = previousState.name;
+        configureBoolean();
+
+        function configureBoolean() {
+            if (vm.services.completed == 0) {
+                vm.services.completed = "Not Completed"
+            }
+        }
 
         var unsubscribe = $rootScope.$on('eLancerApp:servicesUpdate', function(event, result) {
             vm.services = result;

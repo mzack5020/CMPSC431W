@@ -46,6 +46,34 @@
                 }],
             }
         })
+        .state('services.newBid', {
+            parent: 'entity',
+            url: '/services/{id}/newBid',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/bids/bids-dialog.html',
+                    controller: 'BidsDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: function () {
+                            return {
+                                amount: null,
+                                id: null
+                            };
+                        }
+                    }
+                }).result.then(function() {
+                    $state.go('services', null, { reload: 'services' });
+                }, function() {
+                    $state.go('services');
+                });
+            }]
+        })
         .state('services-detail', {
             parent: 'entity',
             url: '/services/{id}',

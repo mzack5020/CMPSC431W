@@ -46,14 +46,29 @@
         </dd>
     </dl>
 
-    <button type="submit"
-            ui-sref="{{ vm.previousState }}"
-            class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
-    </button>
+    <div class="row text-left">
+        <div class="col-md-6">
+            <button type="submit"
+                    ui-sref="{{ vm.previousState }}"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+            </button>
 
-    <button type="button" ui-sref="services-detail.edit({id:vm.services.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-usd"></span>
-        <span class="hidden-xs hidden-sm">Place Bid</span>
-    </button>
+            <button class="btn btn-danger" ui-sref="services.newBid">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                <span class="hidden-xs" >
+                Report
+            </span>
+            </button>
+        </div>
+
+        <div class="col-md-6 text-right">
+            <button class="btn btn-success" ui-sref="services.newBid" >
+                <span class="glyphicon glyphicon-usd"></span>
+                <span class="hidden-xs" >
+                    <strong>Place Bid</strong>
+                </span>
+            </button>
+        </div>
+    </div>
 </div>
