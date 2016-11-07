@@ -55,8 +55,10 @@
                 vm.services = data;
                 vm.page = pagingParams.page;
                 for(var i = 0; i < vm.totalItems; i++) {
-                    if(vm.services[i].completed == 0) {
+                    if (vm.services[i].completed == 0) {
                         vm.services[i].completed = "Not Completed";
+                    } else {
+                        vm.services[i].completed = "Completed";
                     }
                 }
             }

@@ -1,0 +1,62 @@
+<div class="text-center">
+    <div class="container-fluid">
+        <h1 class="text-center">My Profile</h1>
+        <br>
+        <jhi-alert></jhi-alert>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="user temporary"></div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="table-responsive">
+                    <table class="jh-table table table-striped">
+                        <thead>
+                            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                                <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                <th jh-sort-by="datePosted"><span>Date Posted</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                <th jh-sort-by="expirationDate"><span>Expiration Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                <th jh-sort-by="completed"><span>Completed</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="services in vm.services track by services.id">
+                                <td><a ui-sref="profile-service-detail({id:services.id})">{{services.name}}</a></td>
+                                <td>{{services.description}}</td>
+                                <td>{{services.datePosted | date:'mediumDate'}}</td>
+                                <td>{{services.expirationDate | date:'mediumDate'}}</td>
+                                <td>{{services.completed}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                ui-sref="profile-service-detail({id:services.id})"
+                                                class="btn btn-info btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                            <span class="hidden-xs hidden-sm"></span>
+                                        </button>
+                                        <button type="submit"
+                                            ui-sref="services.edit({id:services.id})"
+                                            class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            <span class="hidden-xs hidden-sm"></span>
+                                        </button>
+                                        <button type="submit"
+                                                ui-sref="services.delete({id:services.id})"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                            <span class="hidden-xs hidden-sm"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

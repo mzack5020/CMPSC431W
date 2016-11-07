@@ -16,7 +16,9 @@
 
         function configureBoolean() {
             if (vm.services.completed == 0) {
-                vm.services.completed = "Not Completed"
+                vm.services.completed = "Not Completed";
+            } else {
+                vm.services.completed = "Completed";
             }
         }
 

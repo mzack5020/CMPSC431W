@@ -11,5 +11,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface ServicesRepository extends JpaRepository<Services,Long> {
-
+    List<Services> findByCustomerId(Long id);
 }

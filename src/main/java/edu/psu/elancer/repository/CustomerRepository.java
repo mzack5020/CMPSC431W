@@ -11,5 +11,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
-
+    List<Customer> findByEmail(String email);
 }

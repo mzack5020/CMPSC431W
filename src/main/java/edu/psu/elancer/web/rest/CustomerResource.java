@@ -5,6 +5,8 @@ import edu.psu.elancer.domain.Customer;
 
 import edu.psu.elancer.repository.CustomerRepository;
 import edu.psu.elancer.repository.search.CustomerSearchRepository;
+import edu.psu.elancer.security.SecurityUtils;
+import edu.psu.elancer.service.UserService;
 import edu.psu.elancer.web.rest.util.HeaderUtil;
 import edu.psu.elancer.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -35,12 +37,15 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class CustomerResource {
 
     private final Logger log = LoggerFactory.getLogger(CustomerResource.class);
-        
+
     @Inject
     private CustomerRepository customerRepository;
 
     @Inject
     private CustomerSearchRepository customerSearchRepository;
+
+    @Inject
+    private UserService userService;
 
     /**
      * POST  /customers : Create a new customer.
@@ -140,7 +145,7 @@ public class CustomerResource {
      * SEARCH  /_search/customers?query=:query : search for the customer corresponding
      * to the query.
      *
-     * @param query the query of the customer search 
+     * @param query the query of the customer search
      * @param pageable the pagination information
      * @return the result of the search
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
@@ -155,5 +160,18 @@ public class CustomerResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     *  GET  /accountHelp
+     *
+     *  @return ResponseEntity return with Status 200 (OK)
+     */
+    @GetMapping("/accountHelp")
+    @Timed
+    public ResponseEntity<Customer> findCustomerByEmail() {
+        log.debug("REST request to find customer by email");
+        String email = userService.getUserWithAuthorities().getEmail();
+        List<Customer> response = customerRepository.findByEmail(email);
+        return ResponseEntity.ok().body(response.get(0));
+    }
 
 }

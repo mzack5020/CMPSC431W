@@ -158,5 +158,20 @@ public class ServicesResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     *  GET  /profile/services/{id}
+     *
+     *  @param id : id of profile to get services for
+     *  @return the result of the search Status 200 (OK)
+     */
+    @GetMapping("/profile/services/{id}")
+    @Timed
+    public ResponseEntity<List<Services>> findServicesByCustomerId(@PathVariable Long id) {
+        log.debug("REST request to get all services for user");
+        List<Services> response = servicesRepository.findByCustomerId(id);
+        log.debug("SERVICES FOUND: ");
+        log.debug(response.toString());
+        return ResponseEntity.ok().body(response);
+    }
 
 }
