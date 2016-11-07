@@ -329,6 +329,18 @@ ui bootstrap tweaks
     outline: none;
 }
 
-
+.rBody {
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-bottom: 4px solid #eee;
+    background: #fff;
+    width: 330px;
+    height: 250px;
+    float: left;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 36px 36px 0;
+    position: relative;
+}
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
