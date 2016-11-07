@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Bids</span> {{vm.bids.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Amount</span></dt>
+        <dd>
+            <span>{{vm.bids.amount}}</span>
+        </dd>
+        <dt><span>Services</span></dt>
+        <dd>
+            <a ui-sref="services-detail({id:vm.bids.services.id})">{{vm.bids.services.name}}</a>
+        </dd>
+        <dt><span>Contractor</span></dt>
+        <dd>
+            <a ui-sref="contractor-detail({id:vm.bids.contractor.id})">{{vm.bids.contractor.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="bids-detail.edit({id:vm.bids.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

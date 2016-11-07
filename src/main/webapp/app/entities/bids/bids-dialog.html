@@ -1,0 +1,62 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myBidsLabel">Create or edit a Bids</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.bids.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.bids.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_amount">Amount</label>
+            <input type="text" class="form-control" name="amount" id="field_amount"
+                    ng-model="vm.bids.amount"
+                    required />
+            <div ng-show="editForm.amount.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.amount.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="field_services">Services</label>
+            <select class="form-control" id="field_services" name="services" ng-model="vm.bids.services" ng-options="services as services.name for services in vm.services | orderBy:'id' track by services.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.services.$invalid">
+            <p class="help-block"
+                ng-show="editForm.services.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="field_contractor">Contractor</label>
+            <select class="form-control" id="field_contractor" name="contractor" ng-model="vm.bids.contractor" ng-options="contractor as contractor.name for contractor in vm.contractors | orderBy:'id' track by contractor.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.contractor.$invalid">
+            <p class="help-block"
+                ng-show="editForm.contractor.$error.required">
+                This field is required.
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
