@@ -61,7 +61,7 @@
                 </p>
             </div>
         </div>
-        <!--<div class="form-group">
+        <div class="form-group">
             <label class="control-label" for="field_datePosted">Date Posted</label>
                 <div class="input-group">
                     <input id="field_datePosted" type="text" class="form-control" name="datePosted" uib-datepicker-popup="{{dateformat}}" ng-model="vm.services.datePosted" is-open="vm.datePickerOpenStatus.datePosted"
@@ -70,8 +70,8 @@
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('datePosted')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
-        </div>-->
-        <!--<div class="form-group">
+        </div>
+        <div class="form-group">
             <label class="control-label" for="field_reportedCount">Reported Count</label>
             <input type="number" class="form-control" name="reportedCount" id="field_reportedCount"
                     ng-model="vm.services.reportedCount"
@@ -82,7 +82,7 @@
             <input type="text" class="form-control" name="photoPath" id="field_photoPath"
                     ng-model="vm.services.photoPath"
                      />
-        </div>-->
+        </div>
         <div class="form-group">
             <label class="control-label" for="field_expirationDate">Expiration Date</label>
                 <div class="input-group">
@@ -98,6 +98,12 @@
                     This field is required.
                 </p>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_completed">Completed</label>
+            <input type="checkbox" class="form-control" name="completed" id="field_completed"
+                    ng-model="vm.services.completed"
+                     />
         </div>
 
         <div class="form-group">

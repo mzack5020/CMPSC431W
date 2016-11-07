@@ -64,6 +64,9 @@ public class ServicesResourceIntTest {
     private static final LocalDate DEFAULT_EXPIRATION_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_EXPIRATION_DATE = LocalDate.now(ZoneId.systemDefault());
 
+    private static final Boolean DEFAULT_COMPLETED = false;
+    private static final Boolean UPDATED_COMPLETED = true;
+
     @Inject
     private ServicesRepository servicesRepository;
 
@@ -108,7 +111,8 @@ public class ServicesResourceIntTest {
                 .datePosted(DEFAULT_DATE_POSTED)
                 .reportedCount(DEFAULT_REPORTED_COUNT)
                 .photoPath(DEFAULT_PHOTO_PATH)
-                .expirationDate(DEFAULT_EXPIRATION_DATE);
+                .expirationDate(DEFAULT_EXPIRATION_DATE)
+                .completed(DEFAULT_COMPLETED);
         // Add required entity
         Customer customer = CustomerResourceIntTest.createEntity(em);
         em.persist(customer);
@@ -151,6 +155,7 @@ public class ServicesResourceIntTest {
         assertThat(testServices.getReportedCount()).isEqualTo(DEFAULT_REPORTED_COUNT);
         assertThat(testServices.getPhotoPath()).isEqualTo(DEFAULT_PHOTO_PATH);
         assertThat(testServices.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
+        assertThat(testServices.isCompleted()).isEqualTo(DEFAULT_COMPLETED);
 
         // Validate the Services in ElasticSearch
         Services servicesEs = servicesSearchRepository.findOne(testServices.getId());
@@ -246,7 +251,8 @@ public class ServicesResourceIntTest {
                 .andExpect(jsonPath("$.[*].datePosted").value(hasItem(DEFAULT_DATE_POSTED.toString())))
                 .andExpect(jsonPath("$.[*].reportedCount").value(hasItem(DEFAULT_REPORTED_COUNT)))
                 .andExpect(jsonPath("$.[*].photoPath").value(hasItem(DEFAULT_PHOTO_PATH.toString())))
-                .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())));
+                .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())))
+                .andExpect(jsonPath("$.[*].completed").value(hasItem(DEFAULT_COMPLETED.booleanValue())));
     }
 
     @Test
@@ -266,7 +272,8 @@ public class ServicesResourceIntTest {
             .andExpect(jsonPath("$.datePosted").value(DEFAULT_DATE_POSTED.toString()))
             .andExpect(jsonPath("$.reportedCount").value(DEFAULT_REPORTED_COUNT))
             .andExpect(jsonPath("$.photoPath").value(DEFAULT_PHOTO_PATH.toString()))
-            .andExpect(jsonPath("$.expirationDate").value(DEFAULT_EXPIRATION_DATE.toString()));
+            .andExpect(jsonPath("$.expirationDate").value(DEFAULT_EXPIRATION_DATE.toString()))
+            .andExpect(jsonPath("$.completed").value(DEFAULT_COMPLETED.booleanValue()));
     }
 
     @Test
@@ -294,7 +301,8 @@ public class ServicesResourceIntTest {
                 .datePosted(UPDATED_DATE_POSTED)
                 .reportedCount(UPDATED_REPORTED_COUNT)
                 .photoPath(UPDATED_PHOTO_PATH)
-                .expirationDate(UPDATED_EXPIRATION_DATE);
+                .expirationDate(UPDATED_EXPIRATION_DATE)
+                .completed(UPDATED_COMPLETED);
 
         restServicesMockMvc.perform(put("/api/services")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -312,6 +320,7 @@ public class ServicesResourceIntTest {
         assertThat(testServices.getReportedCount()).isEqualTo(UPDATED_REPORTED_COUNT);
         assertThat(testServices.getPhotoPath()).isEqualTo(UPDATED_PHOTO_PATH);
         assertThat(testServices.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
+        assertThat(testServices.isCompleted()).isEqualTo(UPDATED_COMPLETED);
 
         // Validate the Services in ElasticSearch
         Services servicesEs = servicesSearchRepository.findOne(testServices.getId());
@@ -358,6 +367,7 @@ public class ServicesResourceIntTest {
             .andExpect(jsonPath("$.[*].datePosted").value(hasItem(DEFAULT_DATE_POSTED.toString())))
             .andExpect(jsonPath("$.[*].reportedCount").value(hasItem(DEFAULT_REPORTED_COUNT)))
             .andExpect(jsonPath("$.[*].photoPath").value(hasItem(DEFAULT_PHOTO_PATH.toString())))
-            .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())));
+            .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())))
+            .andExpect(jsonPath("$.[*].completed").value(hasItem(DEFAULT_COMPLETED.booleanValue())));
     }
 }

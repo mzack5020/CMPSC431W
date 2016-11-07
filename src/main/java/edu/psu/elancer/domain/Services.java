@@ -49,6 +49,9 @@ public class Services implements Serializable {
     @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
 
+    @Column(name = "completed")
+    private Boolean completed;
+
     @OneToOne
     @NotNull
     @JoinColumn(unique = true)
@@ -158,6 +161,19 @@ public class Services implements Serializable {
         this.expirationDate = expirationDate;
     }
 
+    public Boolean isCompleted() {
+        return completed;
+    }
+
+    public Services completed(Boolean completed) {
+        this.completed = completed;
+        return this;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
     public Customer getCustomer() {
         return customer;
     }
@@ -215,6 +231,7 @@ public class Services implements Serializable {
             ", reportedCount='" + reportedCount + "'" +
             ", photoPath='" + photoPath + "'" +
             ", expirationDate='" + expirationDate + "'" +
+            ", completed='" + completed + "'" +
             '}';
     }
 }

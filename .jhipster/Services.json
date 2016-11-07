@@ -68,6 +68,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "completed",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20161107044202",

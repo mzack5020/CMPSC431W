@@ -122,6 +122,7 @@
                                 reportedCount: null,
                                 photoPath: null,
                                 expirationDate: null,
+                                completed: null,
                                 id: null
                             };
                         }

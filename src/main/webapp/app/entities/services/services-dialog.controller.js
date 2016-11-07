@@ -16,7 +16,6 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.customers = Customer.query({filter: 'id-is-null'});
-
         $q.all([vm.services.$promise, vm.customers.$promise]).then(function() {
             if (!vm.services.customer || !vm.services.customer.id) {
                 return $q.reject();
@@ -25,9 +24,7 @@
         }).then(function(customer) {
             vm.customers.push(customer);
         });
-
         vm.categories = Categories.query({filter: 'services-is-null'});
-
         $q.all([vm.services.$promise, vm.categories.$promise]).then(function() {
             if (!vm.services.categories || !vm.services.categories.id) {
                 return $q.reject();

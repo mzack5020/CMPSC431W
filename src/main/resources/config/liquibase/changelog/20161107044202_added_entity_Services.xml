@@ -48,6 +48,10 @@
             <column name="expiration_date" type="date">
                 <constraints nullable="false" />
             </column>
+            
+            <column name="completed" type="bit">
+                <constraints nullable="true" />
+            </column>
                         <column name="customer_id" type="bigint">
                 <constraints unique="true" nullable="false" />
             </column>            <column name="categories_id" type="bigint">

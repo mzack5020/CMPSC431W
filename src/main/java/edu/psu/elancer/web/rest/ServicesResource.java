@@ -58,6 +58,7 @@ public class ServicesResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("services", "idexists", "A new services cannot already have an ID")).body(null);
         }
         services.setDatePosted(LocalDate.now());
+        services.completed(false);
         Services result = servicesRepository.save(services);
         servicesSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/services/" + result.getId()))
