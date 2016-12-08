@@ -11,5 +11,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface CategoriesRepository extends JpaRepository<Categories,Long> {
-
+    Categories findByCategory(String category);
 }

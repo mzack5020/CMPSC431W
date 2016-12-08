@@ -116,7 +116,7 @@ public class CategoriesResource {
         if (result.size() > 0) {
             return ResponseEntity.ok().headers(HeaderUtil.createAlert("Results found", "Retrieved all categories")).body(result);
         } else {
-            return ResponseEntity.status(400).headers(HeaderUtil.createAlert("No results found", "Error retrieving categories")).body(null);
+            return ResponseEntity.status(404).headers(HeaderUtil.createAlert("No results found", "Error retrieving categories")).body(null);
         }
     }
 

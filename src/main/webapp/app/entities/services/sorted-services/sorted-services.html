@@ -1,0 +1,63 @@
+<div>
+    <div id="noServices" style="display:none;">
+        <h4>No Services Found In This Category</h4>
+    </div>
+    <div id="servicesTable">
+        <div class="table-responsive">
+            <table class="jh-table table table-striped">
+                <thead>
+                <tr>
+                    <th><span>Name</span></th>
+                    <th><span>Description</span></th>
+                    <th><span>Location Zip</span></th>
+                    <th><span>Date Posted</span></th>
+                    <th><span>Expiration Date</span></th>
+                    <th><span>Completed</span></th>
+                    <th><span>Customer</span></th>
+                    <th><span>Categories</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="services in vm.services track by services.id">
+                    <td><a ui-sref="services-detail({id:services.id})">{{services.name}}</a></td>
+                    <td>{{services.description}}</td>
+                    <td>{{services.locationZip}}</td>
+                    <td>{{services.datePosted | date:'mediumDate'}}</td>
+                    <td>{{services.expirationDate | date:'mediumDate'}}</td>
+                    <td>{{services.completed}}</td>
+                    <td>
+                        <a ui-sref="customer-detail({id:services.customer.id})">{{services.customer.name}}</a>
+                    </td>
+                    <td>
+                        <!--<a ui-sref="categories-detail({id:services.categories.id})">{{services.categories.category}}</a>-->
+                        {{services.categories.category}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="services-detail({id:services.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <!--<button type="submit"
+                                    ui-sref="services.edit({id:services.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="services.delete({id:services.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>-->
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

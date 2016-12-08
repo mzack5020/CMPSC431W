@@ -1,12 +1,16 @@
 package edu.psu.elancer.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import edu.psu.elancer.domain.Categories;
+import edu.psu.elancer.domain.Customer;
 import edu.psu.elancer.domain.Services;
-
+import edu.psu.elancer.repository.CategoriesRepository;
+import edu.psu.elancer.repository.CustomerRepository;
 import edu.psu.elancer.repository.ServicesRepository;
 import edu.psu.elancer.repository.search.ServicesSearchRepository;
 import edu.psu.elancer.web.rest.util.HeaderUtil;
 import edu.psu.elancer.web.rest.util.PaginationUtil;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,16 +21,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * REST controller for managing Services.
@@ -38,7 +46,16 @@ public class ServicesResource {
     private final Logger log = LoggerFactory.getLogger(ServicesResource.class);
 
     @Inject
+    private DataSource dataSource;
+
+    @Inject
     private ServicesRepository servicesRepository;
+
+    @Inject
+    private CategoriesRepository categoriesRepository;
+
+    @Inject
+    private CustomerRepository customerRepository;
 
     @Inject
     private ServicesSearchRepository servicesSearchRepository;
@@ -174,4 +191,77 @@ public class ServicesResource {
         return ResponseEntity.ok().body(response);
     }
 
+    /**
+     * GET  /sorted-services/{id}
+     *
+     * @param id : name of the category to sort for
+     * @return the result of the search Status 200 (OK)
+     */
+    @GetMapping("/sorted-services/{id}")
+    @Timed
+    public ResponseEntity<List<Services>> findServicesByCategory(@PathVariable String id) {
+        Categories categories = categoriesRepository.findByCategory(id);
+        List<Services> result = new ArrayList<Services>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = dataSource.getConnection();
+            String query = "SELECT * FROM Services WHERE categories_id = '" + categories.getId() + "';";
+            log.debug(query);
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()) {
+                Services newService = new Services();
+                newService.setId(resultSet.getLong("id"));
+                newService.setName(resultSet.getString("name"));
+                newService.setDescription(resultSet.getString("description"));
+                newService.setLocationZip(resultSet.getInt("location_zip"));
+                newService.setDatePosted(resultSet.getDate("date_posted").toLocalDate());
+                newService.setReportedCount(resultSet.getInt("reported_count"));
+                newService.setPhotoPath(resultSet.getString("photo_path"));
+                newService.setExpirationDate(resultSet.getDate("expiration_date").toLocalDate());
+                newService.setCompleted(resultSet.getBoolean("completed"));
+
+                Long customerId = resultSet.getLong("customer_id");
+                Customer customer = customerRepository.findOne(customerId);
+                newService.setCustomer(customer);
+
+                Categories newCategory = new Categories();
+                newCategory.setCategory(id);
+                newCategory.setId(categories.getId());
+                newService.setCategories(newCategory);
+
+                result.add(newService);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Found services", "Category: " + id)).body(result);
+    }
 }
