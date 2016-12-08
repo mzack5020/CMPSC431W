@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -22,8 +23,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -35,7 +34,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class CategoriesResource {
 
     private final Logger log = LoggerFactory.getLogger(CategoriesResource.class);
-        
+
     @Inject
     private CategoriesRepository categoriesRepository;
 
@@ -104,6 +103,24 @@ public class CategoriesResource {
     }
 
     /**
+     * GET  /categoriesAll : get all categories NO PAGINATION
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of categories in body
+     */
+    @GetMapping("/categoriesAll")
+    @Timed
+    public ResponseEntity<List<Categories>> getAllCategories() {
+        log.debug("REST request to get all Categories (no pagination)");
+        List<Categories> result = categoriesRepository.findAll();
+
+        if (result.size() > 0) {
+            return ResponseEntity.ok().headers(HeaderUtil.createAlert("Results found", "Retrieved all categories")).body(result);
+        } else {
+            return ResponseEntity.status(400).headers(HeaderUtil.createAlert("No results found", "Error retrieving categories")).body(null);
+        }
+    }
+
+    /**
      * GET  /categories/:id : get the "id" categories.
      *
      * @param id the id of the categories to retrieve
@@ -140,7 +157,7 @@ public class CategoriesResource {
      * SEARCH  /_search/categories?query=:query : search for the categories corresponding
      * to the query.
      *
-     * @param query the query of the categories search 
+     * @param query the query of the categories search
      * @param pageable the pagination information
      * @return the result of the search
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers

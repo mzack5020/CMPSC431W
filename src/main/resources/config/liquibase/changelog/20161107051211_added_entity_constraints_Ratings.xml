@@ -6,8 +6,8 @@
     <!--
         Added the constraints for entity Ratings.
     -->
-    <changeSet id="20161107051211-2" author="jhipster">
-        
+    <!--<changeSet id="20161107051211-2" author="jhipster">
+
         <addForeignKeyConstraint baseColumnNames="customer_id"
                                  baseTableName="ratings"
                                  constraintName="fk_ratings_customer_id"
@@ -26,5 +26,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="services"/>
 
-    </changeSet>
+    </changeSet>-->
 </databaseChangeLog>

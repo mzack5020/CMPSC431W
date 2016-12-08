@@ -50,6 +50,9 @@ public class CustomerResourceIntTest {
     private static final LocalDate DEFAULT_BIRTHDAY = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_BIRTHDAY = LocalDate.now(ZoneId.systemDefault());
 
+    private static final Integer DEFAULT_ROLE = 1;
+    private static final Integer UPDATED_ROLE = 2;
+
     @Inject
     private CustomerRepository customerRepository;
 
@@ -90,7 +93,8 @@ public class CustomerResourceIntTest {
         Customer customer = new Customer()
                 .name(DEFAULT_NAME)
                 .email(DEFAULT_EMAIL)
-                .birthday(DEFAULT_BIRTHDAY);
+                .birthday(DEFAULT_BIRTHDAY)
+                .role(DEFAULT_ROLE);
         return customer;
     }
 
@@ -119,6 +123,7 @@ public class CustomerResourceIntTest {
         assertThat(testCustomer.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCustomer.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testCustomer.getBirthday()).isEqualTo(DEFAULT_BIRTHDAY);
+        assertThat(testCustomer.getRole()).isEqualTo(DEFAULT_ROLE);
 
         // Validate the Customer in ElasticSearch
         Customer customerEs = customerSearchRepository.findOne(testCustomer.getId());
@@ -181,6 +186,24 @@ public class CustomerResourceIntTest {
 
     @Test
     @Transactional
+    public void checkRoleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customerRepository.findAll().size();
+        // set the field null
+        customer.setRole(null);
+
+        // Create the Customer, which fails.
+
+        restCustomerMockMvc.perform(post("/api/customers")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(customer)))
+                .andExpect(status().isBadRequest());
+
+        List<Customer> customers = customerRepository.findAll();
+        assertThat(customers).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCustomers() throws Exception {
         // Initialize the database
         customerRepository.saveAndFlush(customer);
@@ -192,7 +215,8 @@ public class CustomerResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
-                .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())));
+                .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())))
+                .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)));
     }
 
     @Test
@@ -208,7 +232,8 @@ public class CustomerResourceIntTest {
             .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
-            .andExpect(jsonPath("$.birthday").value(DEFAULT_BIRTHDAY.toString()));
+            .andExpect(jsonPath("$.birthday").value(DEFAULT_BIRTHDAY.toString()))
+            .andExpect(jsonPath("$.role").value(DEFAULT_ROLE));
     }
 
     @Test
@@ -232,7 +257,8 @@ public class CustomerResourceIntTest {
         updatedCustomer
                 .name(UPDATED_NAME)
                 .email(UPDATED_EMAIL)
-                .birthday(UPDATED_BIRTHDAY);
+                .birthday(UPDATED_BIRTHDAY)
+                .role(UPDATED_ROLE);
 
         restCustomerMockMvc.perform(put("/api/customers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -246,6 +272,7 @@ public class CustomerResourceIntTest {
         assertThat(testCustomer.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCustomer.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testCustomer.getBirthday()).isEqualTo(UPDATED_BIRTHDAY);
+        assertThat(testCustomer.getRole()).isEqualTo(UPDATED_ROLE);
 
         // Validate the Customer in ElasticSearch
         Customer customerEs = customerSearchRepository.findOne(testCustomer.getId());
@@ -288,6 +315,7 @@ public class CustomerResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
-            .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())));
+            .andExpect(jsonPath("$.[*].birthday").value(hasItem(DEFAULT_BIRTHDAY.toString())))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)));
     }
 }

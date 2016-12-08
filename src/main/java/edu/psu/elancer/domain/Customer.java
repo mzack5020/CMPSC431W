@@ -34,6 +34,10 @@ public class Customer implements Serializable {
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
+    @NotNull
+    @Column(name = "role", nullable = false)
+    private Integer role;
+
     public Long getId() {
         return id;
     }
@@ -81,6 +85,19 @@ public class Customer implements Serializable {
         this.birthday = birthday;
     }
 
+    public Integer getRole() {
+        return role;
+    }
+
+    public Customer role(Integer role) {
+        this.role = role;
+        return this;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -108,6 +125,7 @@ public class Customer implements Serializable {
             ", name='" + name + "'" +
             ", email='" + email + "'" +
             ", birthday='" + birthday + "'" +
+            ", role='" + role + "'" +
             '}';
     }
 }

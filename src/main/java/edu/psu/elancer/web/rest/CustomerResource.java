@@ -5,7 +5,6 @@ import edu.psu.elancer.domain.Customer;
 
 import edu.psu.elancer.repository.CustomerRepository;
 import edu.psu.elancer.repository.search.CustomerSearchRepository;
-import edu.psu.elancer.security.SecurityUtils;
 import edu.psu.elancer.service.UserService;
 import edu.psu.elancer.web.rest.util.HeaderUtil;
 import edu.psu.elancer.web.rest.util.PaginationUtil;
@@ -42,10 +41,10 @@ public class CustomerResource {
     private CustomerRepository customerRepository;
 
     @Inject
-    private CustomerSearchRepository customerSearchRepository;
+    private UserService userService;
 
     @Inject
-    private UserService userService;
+    private CustomerSearchRepository customerSearchRepository;
 
     /**
      * POST  /customers : Create a new customer.

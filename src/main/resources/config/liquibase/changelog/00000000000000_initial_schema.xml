@@ -10,16 +10,16 @@
 
     <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
 
-    <changeSet id="00000000000000" author="jhipster" dbms="postgresql,oracle">
+    <!--<changeSet id="00000000000000" author="jhipster" dbms="postgresql,oracle">
         <createSequence sequenceName="hibernate_sequence" startValue="1000" incrementBy="1"/>
-    </changeSet>
+    </changeSet>-->
 
     <!--
         JHipster core tables.
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
-    <changeSet id="00000000000001" author="jhipster">
-        
+    <!--<changeSet id="00000000000001" author="jhipster">
+
         <createTable tableName="jhi_user">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -51,7 +51,7 @@
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
-        
+
         <createIndex indexName="idx_user_login"
             tableName="jhi_user"
             unique="true">
@@ -63,7 +63,7 @@
             unique="true">
             <column name="email" type="varchar(100)"/>
         </createIndex>
-        
+
         <createTable tableName="jhi_authority">
             <column name="name" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
@@ -110,7 +110,7 @@
                   file="config/liquibase/users_authorities.csv"
                   separator=";"
                   tableName="jhi_user_authority"/>
-        
+
         <createTable tableName="jhi_persistent_audit_event">
             <column name="event_id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -151,10 +151,10 @@
                                  constraintName="fk_evt_pers_audit_evt_data"
                                  referencedColumnNames="event_id"
                                  referencedTableName="jhi_persistent_audit_event"/>
-    
+
     </changeSet>
-    
-    <!-- Manage the OAuth authentication -->
+
+    &lt;!&ndash; Manage the OAuth authentication &ndash;&gt;
     <changeSet id="00000000000002" author="jhipster">
         <createTable tableName="oauth_client_details">
             <column name="client_id" type="varchar(255)">
@@ -228,5 +228,5 @@
                   file="config/liquibase/oauth_client_details.csv"
                   separator=";"
                   tableName="oauth_client_details"/>
-    </changeSet>
+    </changeSet>-->
 </databaseChangeLog>

@@ -118,6 +118,7 @@
                                 name: null,
                                 email: null,
                                 birthday: null,
+                                role: null,
                                 id: null
                             };
                         }

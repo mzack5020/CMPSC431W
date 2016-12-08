@@ -24,3 +24,20 @@
         });
     }
 })();
+
+(function() {
+    'use strict';
+    angular
+        .module('eLancerApp')
+        .factory('CategoriesAll', CategoriesAll);
+
+    CategoriesAll.$inject = ['$resource'];
+
+    function CategoriesAll ($resource) {
+        var resourceUrl =  'api/categoriesAll';
+
+        return $resource(resourceUrl, {}, {
+            'query': { method: 'GET', isArray: true}
+        });
+    }
+})();

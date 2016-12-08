@@ -6,8 +6,8 @@
     <!--
         Added the constraints for entity Bids.
     -->
-    <changeSet id="20161107060416-2" author="jhipster">
-        
+    <!--<changeSet id="20161107060416-2" author="jhipster">
+
         <addForeignKeyConstraint baseColumnNames="services_id"
                                  baseTableName="bids"
                                  constraintName="fk_bids_services_id"
@@ -20,5 +20,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="contractor"/>
 
-    </changeSet>
+    </changeSet>-->
 </databaseChangeLog>

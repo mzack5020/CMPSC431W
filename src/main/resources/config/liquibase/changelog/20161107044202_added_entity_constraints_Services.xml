@@ -6,8 +6,8 @@
     <!--
         Added the constraints for entity Services.
     -->
-    <changeSet id="20161107044202-2" author="jhipster">
-        
+    <!--<changeSet id="20161107044202-2" author="jhipster">
+
         <addForeignKeyConstraint baseColumnNames="customer_id"
                                  baseTableName="services"
                                  constraintName="fk_services_customer_id"
@@ -20,5 +20,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="categories"/>
 
-    </changeSet>
+    </changeSet>-->
 </databaseChangeLog>

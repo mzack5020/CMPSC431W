@@ -16,7 +16,7 @@
     <!--
         Added the entity Categories.
     -->
-    <changeSet id="20161107041845-1" author="jhipster">
+    <!--<changeSet id="20161107041845-1" author="jhipster">
         <createTable tableName="categories">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -24,9 +24,9 @@
             <column name="category" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
+
+            &lt;!&ndash; jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove&ndash;&gt;
         </createTable>
-        
-    </changeSet>
+
+    </changeSet>-->
 </databaseChangeLog>

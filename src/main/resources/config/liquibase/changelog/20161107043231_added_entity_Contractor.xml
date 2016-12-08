@@ -16,7 +16,7 @@
     <!--
         Added the entity Contractor.
     -->
-    <changeSet id="20161107043231-1" author="jhipster">
+    <!--<changeSet id="20161107043231-1" author="jhipster">
         <createTable tableName="contractor">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -24,21 +24,21 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="email" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="phone" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="rating" type="double">
                 <constraints nullable="true" />
             </column>
-            
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
+
+            &lt;!&ndash; jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove&ndash;&gt;
         </createTable>
-        
-    </changeSet>
+
+    </changeSet>-->
 </databaseChangeLog>

@@ -39,6 +39,7 @@
                     <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="email"><span>Email</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="birthday"><span>Birthday</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="role"><span>Role</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -48,6 +49,7 @@
                     <td>{{customer.name}}</td>
                     <td>{{customer.email}}</td>
                         <td>{{customer.birthday | date:'mediumDate'}}</td>
+                    <td>{{customer.role}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

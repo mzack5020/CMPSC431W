@@ -21,6 +21,20 @@
                     controllerAs: 'vm'
                 }
             }
+        }).state('categorySortServices', {
+            parent: 'app',
+            url: '/sortByCategory',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'Select a Category'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/home/select_category.html',
+                    controller: 'SelectCategoryController',
+                    controllerAs: 'vm'
+                }
+            }
         });
     }
 })();

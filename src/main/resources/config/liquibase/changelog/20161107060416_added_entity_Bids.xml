@@ -16,7 +16,7 @@
     <!--
         Added the entity Bids.
     -->
-    <changeSet id="20161107060416-1" author="jhipster">
+    <!--<changeSet id="20161107060416-1" author="jhipster">
         <createTable tableName="bids">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -29,8 +29,8 @@
             </column>            <column name="contractor_id" type="bigint">
                 <constraints unique="false" nullable="false" />
             </column>
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
+            &lt;!&ndash; jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove&ndash;&gt;
         </createTable>
 
-    </changeSet>
+    </changeSet>-->
 </databaseChangeLog>

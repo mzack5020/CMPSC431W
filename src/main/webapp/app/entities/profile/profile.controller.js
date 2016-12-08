@@ -26,6 +26,7 @@
         function getAccountMapping(userEmail) {
             AccountHelp.query({email : userEmail}, onSuccess, onError);
             function onSuccess(data, headers) {
+                console.log(data);
                 getServices(data.id);
             }
             function onError(error) {
