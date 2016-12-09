@@ -5,90 +5,49 @@
         .module('eLancerApp')
         .controller('RatingsController', RatingsController);
 
-    RatingsController.$inject = ['$scope', '$state', 'Ratings', 'RatingsSearch', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    RatingsController.$inject = ['$scope', '$state', 'Profile', 'AlertService', 'AccountHelp', 'Customer', 'Principal'];
 
-    function RatingsController ($scope, $state, Ratings, RatingsSearch, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function RatingsController ($scope, $state, Profile, AlertService, AccountHelp, Customer, Principal) {
         var vm = this;
-        
-        vm.loadPage = loadPage;
-        vm.predicate = pagingParams.predicate;
-        vm.reverse = pagingParams.ascending;
-        vm.transition = transition;
-        vm.itemsPerPage = paginationConstants.itemsPerPage;
-        vm.clear = clear;
-        vm.search = search;
-        vm.loadAll = loadAll;
-        vm.searchQuery = pagingParams.search;
-        vm.currentSearch = pagingParams.search;
 
-        loadAll();
+        vm.id = null;
+        vm.email = null;
+        vm.services = [];
 
-        function loadAll () {
-            if (pagingParams.search) {
-                RatingsSearch.query({
-                    query: pagingParams.search,
-                    page: pagingParams.page - 1,
-                    size: vm.itemsPerPage,
-                    sort: sort()
-                }, onSuccess, onError);
-            } else {
-                Ratings.query({
-                    page: pagingParams.page - 1,
-                    size: vm.itemsPerPage,
-                    sort: sort()
-                }, onSuccess, onError);
-            }
-            function sort() {
-                var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
-                if (vm.predicate !== 'id') {
-                    result.push('id');
-                }
-                return result;
-            }
+        getAccount();
+
+        function getAccount() {
+            Principal.identity().then(function (user) {
+                var data = {user: user};
+                console.log(data.user.email);
+                getAccountMapping(data.user.email);
+            });
+        }
+        function getAccountMapping(userEmail) {
+            AccountHelp.query({email : userEmail}, onSuccess, onError);
             function onSuccess(data, headers) {
-                vm.links = ParseLinks.parse(headers('link'));
-                vm.totalItems = headers('X-Total-Count');
-                vm.queryCount = vm.totalItems;
-                vm.ratings = data;
-                vm.page = pagingParams.page;
+                console.log(data);
+                getServices(data.id);
             }
             function onError(error) {
                 AlertService.error(error.data.message);
             }
         }
-
-        function loadPage (page) {
-            vm.page = page;
-            vm.transition();
-        }
-
-        function transition () {
-            $state.transitionTo($state.$current, {
-                page: vm.page,
-                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
-            });
-        }
-
-        function search (searchQuery) {
-            if (!searchQuery){
-                return vm.clear();
+        function getServices(userId) {
+            Profile.query({id : userId}, onSuccess, onError);
+            function onSuccess(data, headers) {
+                vm.services = data;
+                for(var i = 0; i < vm.services.length; i++) {
+                    if (vm.services[i].completed == 0) {
+                        vm.services[i].completed = "Not Completed";
+                    } else {
+                        vm.services[i].completed = "Completed";
+                    }
+                }
             }
-            vm.links = null;
-            vm.page = 1;
-            vm.predicate = '_score';
-            vm.reverse = false;
-            vm.currentSearch = searchQuery;
-            vm.transition();
-        }
-
-        function clear () {
-            vm.links = null;
-            vm.page = 1;
-            vm.predicate = 'id';
-            vm.reverse = true;
-            vm.currentSearch = null;
-            vm.transition();
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
         }
     }
 })();

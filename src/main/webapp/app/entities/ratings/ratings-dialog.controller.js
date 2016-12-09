@@ -14,6 +14,7 @@
         vm.clear = clear;
         vm.save = save;
         vm.customers = Customer.query({filter: 'ratings-is-null'});
+
         $q.all([vm.ratings.$promise, vm.customers.$promise]).then(function() {
             if (!vm.ratings.customer || !vm.ratings.customer.id) {
                 return $q.reject();

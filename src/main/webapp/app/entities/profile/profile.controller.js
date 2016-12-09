@@ -19,14 +19,12 @@
         function getAccount() {
             Principal.identity().then(function (user) {
                 var data = {user: user};
-                console.log(data.user.email);
                 getAccountMapping(data.user.email);
             });
         }
         function getAccountMapping(userEmail) {
             AccountHelp.query({email : userEmail}, onSuccess, onError);
             function onSuccess(data, headers) {
-                console.log(data);
                 getServices(data.id);
             }
             function onError(error) {
@@ -41,7 +39,7 @@
                     if (vm.services[i].completed == 0) {
                         vm.services[i].completed = "Not Completed";
                     } else {
-                        vm.services[i].completed = "Completed";
+                        vm.services.splice(i, 1);
                     }
                 }
             }

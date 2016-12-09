@@ -5,8 +5,11 @@ import edu.psu.elancer.config.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 
+import org.springframework.data.annotation.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -74,6 +77,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "reset_date", nullable = true)
     private ZonedDateTime resetDate = null;
+
+    /*@Transient
+    private Integer role;*/
 
     @JsonIgnore
     @ManyToMany

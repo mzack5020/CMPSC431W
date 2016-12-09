@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import edu.psu.elancer.domain.Ratings;
 
 import edu.psu.elancer.repository.RatingsRepository;
+import edu.psu.elancer.repository.ServicesRepository;
 import edu.psu.elancer.repository.search.RatingsSearchRepository;
 import edu.psu.elancer.web.rest.util.HeaderUtil;
 import edu.psu.elancer.web.rest.util.PaginationUtil;
@@ -35,9 +36,12 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class RatingsResource {
 
     private final Logger log = LoggerFactory.getLogger(RatingsResource.class);
-        
+
     @Inject
     private RatingsRepository ratingsRepository;
+
+    @Inject
+    private ServicesRepository servicesRepository;
 
     @Inject
     private RatingsSearchRepository ratingsSearchRepository;
@@ -140,7 +144,7 @@ public class RatingsResource {
      * SEARCH  /_search/ratings?query=:query : search for the ratings corresponding
      * to the query.
      *
-     * @param query the query of the ratings search 
+     * @param query the query of the ratings search
      * @param pageable the pagination information
      * @return the result of the search
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers

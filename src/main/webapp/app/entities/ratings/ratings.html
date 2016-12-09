@@ -1,91 +1,46 @@
 <div>
-    <h2>Ratings</h2>
-    <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="ratings.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span class="hidden-xs" >
-                        Create new Ratings
-                    </span>
-                </button>
-            </div>
-            <div class="col-xs-8 no-padding-right">
-                <form name="searchForm" class="form-inline">
-                    <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="Query">
-                        <span  class="input-group-btn width-min" >
-                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                        <span class="input-group-btn width-min" ng-if="vm.currentSearch">
-                            <button class="btn btn-info" ng-click="vm.clear()">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div class="text-center">
+        <h2>Click on a Service to Leave a Rating</h2>
+        <p>By leaving a review for the service, you agree that your service was completed and you have accepted/hired a contractors for your service.
+            <br> <span style="color:red;font-weight:bold;">This cannot be undone.</span></p>
     </div>
-    <br/>
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
-                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="rating"><span>Rating</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="comments"><span>Comments</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="customer.name"><span>Customer</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="contractor.name"><span>Contractor</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="services.name"><span>Services</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th></th>
-                </tr>
+            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="datePosted"><span>Date Posted</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="expirationDate"><span>Expiration Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="completed"><span>Completed</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="ratings in vm.ratings track by ratings.id">
-                    <td><a ui-sref="ratings-detail({id:ratings.id})">{{ratings.id}}</a></td>
-                    <td>{{ratings.rating}}</td>
-                    <td>{{ratings.comments}}</td>
-                    <td>
-                        <a ui-sref="customer-detail({id:ratings.customer.id})">{{ratings.customer.name}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="contractor-detail({id:ratings.contractor.id})">{{ratings.contractor.name}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="services-detail({id:ratings.services.id})">{{ratings.services.name}}</a>
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="ratings-detail({id:ratings.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="ratings.edit({id:ratings.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="ratings.delete({id:ratings.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+            <tr ng-repeat="services in vm.services track by services.id">
+                <td><a ui-sref="profile-service-detail({id:services.id})">{{services.name}}</a></td>
+                <td>{{services.description}}</td>
+                <td>{{services.datePosted | date:'mediumDate'}}</td>
+                <td>{{services.expirationDate | date:'mediumDate'}}</td>
+                <td>{{services.completed}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                ui-sref="ratings.new"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-xs hidden-sm"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="profile-service-detail({id:services.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="hidden-xs hidden-sm"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
-    </div>
-    <div class="text-center">
-        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
-        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
 </div>

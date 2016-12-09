@@ -51,6 +51,43 @@
                     return currentStateData;
                 }]
             }
+        })
+        .state('profile.newRating', {
+            parent: 'profile-service-detail',
+            url: '/newRating/{id}',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/ratings/ratings-dialog.html',
+                    controller: 'ProfileNewRatingController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: function () {
+                            return {
+                                customer: null,
+                                contractor: null,
+                                services: null,
+                                rating: null,
+                                comments: null,
+                                id: null
+                            };
+                        },
+                        serviceId: function () {
+                            return {
+                                id: $stateParams.id
+                            };
+                        }
+                    }
+                }).result.then(function() {
+                    $state.go('profile-service-detail', null, { reload: 'profile-service-detail' });
+                }, function() {
+                    $state.go('profile-service-detail');
+                });
+            }]
         });
     }
 })();

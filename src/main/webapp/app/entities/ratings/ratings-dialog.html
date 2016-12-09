@@ -15,6 +15,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="field_rating">Rating</label>
+            <p>Rate from 5 stars (5.0) to 0 stars (0.0) or any number in between (i.e. 3.4)</p>
             <input type="number" class="form-control" name="rating" id="field_rating"
                     ng-model="vm.ratings.rating"
                     required min="0.0" max="5.0" />
@@ -39,6 +40,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="field_comments">Comments</label>
+            <p>Let us know how the transaction went! This will help future customers.</p>
             <input type="text" class="form-control" name="comments" id="field_comments"
                     ng-model="vm.ratings.comments"
                     required />
@@ -50,7 +52,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <label for="field_customer">Customer</label>
             <select class="form-control" id="field_customer" name="customer" ng-model="vm.ratings.customer" ng-options="customer as customer.name for customer in vm.customers | orderBy:'id' track by customer.id" required>
                 <option value=""></option>
@@ -61,7 +63,7 @@
                 ng-show="editForm.customer.$error.required">
                 This field is required.
             </p>
-        </div>
+        </div>-->
         <div class="form-group">
             <label for="field_contractor">Contractor</label>
             <select class="form-control" id="field_contractor" name="contractor" ng-model="vm.ratings.contractor" ng-options="contractor as contractor.name for contractor in vm.contractors | orderBy:'id' track by contractor.id" required>
@@ -73,7 +75,7 @@
                 ng-show="editForm.contractor.$error.required">
                 This field is required.
             </p>
-        </div>
+        </div><!--
         <div class="form-group">
             <label for="field_services">Services</label>
             <select class="form-control" id="field_services" name="services" ng-model="vm.ratings.services" ng-options="services as services.name for services in vm.services | orderBy:'id' track by services.id" required>
@@ -85,7 +87,8 @@
                 ng-show="editForm.services.$error.required">
                 This field is required.
             </p>
-        </div>
+        </div>-->
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

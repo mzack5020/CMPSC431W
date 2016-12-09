@@ -17,8 +17,6 @@
         configureBoolean();
         configureButton();
 
-        // TODO : Change button color and disabled
-
         function completed() {
             vm.services.completed = true;
             Services.update(vm.services, onSuccess, onError);

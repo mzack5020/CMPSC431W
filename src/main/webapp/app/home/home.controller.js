@@ -33,7 +33,6 @@
                 for(var i = 0; i < result.length; i++) {
                     if(result[i].reportedCount == 5) {
                         result.splice(i, 1);
-                        console.log("HIT");
                     }
                     vm.services = result;
                 }

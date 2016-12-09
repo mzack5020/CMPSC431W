@@ -2,7 +2,9 @@ package edu.psu.elancer.web.rest;
 
 import edu.psu.elancer.config.Constants;
 import com.codahale.metrics.annotation.Timed;
+import edu.psu.elancer.domain.Customer;
 import edu.psu.elancer.domain.User;
+import edu.psu.elancer.repository.CustomerRepository;
 import edu.psu.elancer.repository.UserRepository;
 import edu.psu.elancer.repository.search.UserSearchRepository;
 import edu.psu.elancer.security.AuthoritiesConstants;
@@ -73,6 +75,19 @@ public class UserResource {
     @Inject
     private UserSearchRepository userSearchRepository;
 
+    @Inject
+    private CustomerRepository customerRepository;
+
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
+    public void addToCustomerDb(User user) {
+        Customer newCustomer = new Customer();
+        newCustomer.setEmail(user.getEmail());
+        newCustomer.setRole(1);
+        newCustomer.setName(user.getFirstName() + " " + user.getLastName());
+        customerRepository.save(newCustomer);
+    }
+
     /**
      * POST  /users  : Creates a new user.
      * <p>
@@ -103,6 +118,8 @@ public class UserResource {
                 .body(null);
         } else {
             User newUser = userService.createUser(managedUserVM);
+            // addToCustomerDb(newUser);
+
             String baseUrl = request.getScheme() + // "http"
             "://" +                                // "://"
             request.getServerName() +              // "myhost"
@@ -148,7 +165,7 @@ public class UserResource {
 
     /**
      * GET  /users : get all users.
-     * 
+     *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and with body all users
      * @throws URISyntaxException if the pagination headers couldn't be generated

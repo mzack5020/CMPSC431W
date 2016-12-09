@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -170,7 +171,11 @@ public class CustomerResource {
         log.debug("REST request to find customer by email");
         String email = userService.getUserWithAuthorities().getEmail();
         List<Customer> response = customerRepository.findByEmail(email);
-        return ResponseEntity.ok().body(response.get(0));
+        if(response.size() > 0) {
+            return ResponseEntity.ok().body(response.get(0));
+        } else {
+            return ResponseEntity.status(404).body(null);
+        }
     }
 
 }
