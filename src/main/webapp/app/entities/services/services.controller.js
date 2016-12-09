@@ -17,7 +17,6 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.$state = $state;
         vm.isAuthenticated = Principal.isAuthenticated;
-        console.log(vm.$state);
         vm.clear = clear;
         vm.search = search;
         vm.loadAll = loadAll;
@@ -58,7 +57,9 @@
                     if (vm.services[i].completed == 0) {
                         vm.services[i].completed = "Not Completed";
                     } else {
-                        vm.services[i].completed = "Completed";
+                        vm.services.splice(i, 1);
+                        vm.totalItems = vm.totalItems - 1;
+                        vm.queryCount = vm.queryCount - 1;
                     }
                 }
             }

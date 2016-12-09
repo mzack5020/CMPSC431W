@@ -1,0 +1,26 @@
+<div>
+    <div id="noServices" style="display:none;">
+        <h4>No Services Found In This Category</h4>
+    </div>
+    <div id="servicesTable">
+        <div class="table-responsive">
+            <table class="jh-table table table-striped">
+                <thead>
+                <tr>
+                    <th><span>Amount</span></th>
+                    <th><span>Service</span></th>
+                    <th><span>Contractor</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="bids in vm.bids track by bids.id">
+                    <td>{{bids.amount}}</td>
+                    <td>{{bids.services.name}}</td>
+                    <td>{{bids.contractor.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

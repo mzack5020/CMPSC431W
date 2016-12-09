@@ -76,6 +76,7 @@ public class ServicesResource {
         }
         services.setDatePosted(LocalDate.now());
         services.completed(false);
+        services.setReportedCount(0);
         Services result = servicesRepository.save(services);
         servicesSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/services/" + result.getId()))

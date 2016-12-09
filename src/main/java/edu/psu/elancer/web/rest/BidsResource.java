@@ -3,7 +3,13 @@ package edu.psu.elancer.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import edu.psu.elancer.domain.Bids;
 
+import edu.psu.elancer.domain.Contractor;
+import edu.psu.elancer.domain.Customer;
+import edu.psu.elancer.domain.Services;
 import edu.psu.elancer.repository.BidsRepository;
+import edu.psu.elancer.repository.ContractorRepository;
+import edu.psu.elancer.repository.CustomerRepository;
+import edu.psu.elancer.repository.ServicesRepository;
 import edu.psu.elancer.repository.search.BidsSearchRepository;
 import edu.psu.elancer.web.rest.util.HeaderUtil;
 import edu.psu.elancer.web.rest.util.PaginationUtil;
@@ -17,9 +23,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,9 +47,18 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class BidsResource {
 
     private final Logger log = LoggerFactory.getLogger(BidsResource.class);
-        
+
+    @Inject
+    private DataSource dataSource;
+
     @Inject
     private BidsRepository bidsRepository;
+
+    @Inject
+    private ServicesRepository servicesRepository;
+
+    @Inject
+    private ContractorRepository contractorRepository;
 
     @Inject
     private BidsSearchRepository bidsSearchRepository;
@@ -140,7 +161,7 @@ public class BidsResource {
      * SEARCH  /_search/bids?query=:query : search for the bids corresponding
      * to the query.
      *
-     * @param query the query of the bids search 
+     * @param query the query of the bids search
      * @param pageable the pagination information
      * @return the result of the search
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
@@ -155,5 +176,62 @@ public class BidsResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * GET  /sorted-bids/{id}
+     *
+     * @param id : id of the service to get the bids for
+     * @return list of bids for that service with Status 200 (OK)
+     */
+    @GetMapping("/sorted-bids/{id}")
+    @Timed
+    public ResponseEntity<List<Bids>> getBidsForService(@PathVariable Long id) {
+        Services service = servicesRepository.findOne(id);
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Bids> result = new ArrayList<Bids>();
+        try {
+            connection = dataSource.getConnection();
+            String queryStatement = "SELECT * FROM Bids WHERE `services_id` = '" + id + "';";
+            preparedStatement = connection.prepareStatement(queryStatement);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                Bids newBid = new Bids();
+                newBid.setId(resultSet.getLong("id"));
+                newBid.setAmount(resultSet.getString("amount"));
+                newBid.setServices(service);
+
+                Contractor contractor = contractorRepository.findOne(resultSet.getLong("contractor_id"));
+                newBid.setContractor(contractor);
+                result.add(newBid);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Queried against database", "Contractor id: " + id)).body(result);
+    }
 
 }

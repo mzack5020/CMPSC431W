@@ -2,6 +2,7 @@ package edu.psu.elancer.repository;
 
 import edu.psu.elancer.domain.Bids;
 
+import edu.psu.elancer.domain.Services;
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface BidsRepository extends JpaRepository<Bids,Long> {
-
+    List<Bids> findByServices(Services service);
 }
