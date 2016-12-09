@@ -22,6 +22,24 @@
             }
         }
 
+        vm.report = function() {
+            vm.services.reportedCount = vm.services.reportedCount + 1;
+            if (vm.services.completed == "Not Completed") {
+                vm.services.completed = false;
+            } else {
+                vm.services.completed = true;
+            }
+            Services.update(vm.services, onSaveSuccess, onSaveError);
+        }
+
+        function onSaveSuccess(result) {
+            console.log("Save success");
+        }
+
+        function onSaveError() {
+            console.log("Save failure");
+        }
+
         var unsubscribe = $rootScope.$on('eLancerApp:servicesUpdate', function(event, result) {
             vm.services = result;
         });

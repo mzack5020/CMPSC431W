@@ -143,6 +143,7 @@
                     resolve: {
                         entity: function () {
                             return {
+                                customer: null,
                                 name: null,
                                 description: null,
                                 locationZip: null,

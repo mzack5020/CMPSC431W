@@ -106,7 +106,7 @@
                      />
         </div>-->
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <label for="field_customer">Customer</label>
             <select class="form-control" id="field_customer" name="customer" ng-model="vm.services.customer" ng-options="customer as customer.name for customer in vm.customers | orderBy:'id' track by customer.id" required>
                 <option value=""></option>
@@ -117,7 +117,7 @@
                 ng-show="editForm.customer.$error.required">
                 This field is required.
             </p>
-        </div>
+        </div>-->
         <div class="form-group">
             <label for="field_categories">Categories</label>
             <select class="form-control" id="field_categories" name="categories" ng-model="vm.services.categories" ng-options="categories as categories.category for categories in vm.categories | orderBy:'id' track by categories.id" required>

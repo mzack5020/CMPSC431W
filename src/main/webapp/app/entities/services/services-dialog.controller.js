@@ -5,9 +5,9 @@
         .module('eLancerApp')
         .controller('ServicesDialogController', ServicesDialogController);
 
-    ServicesDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Services', 'Customer', 'Categories'];
+    ServicesDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Services', 'Customer', 'Categories', 'Principal', 'AccountHelp'];
 
-    function ServicesDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Services, Customer, Categories) {
+    function ServicesDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Services, Customer, Categories, Principal, AccountHelp) {
         var vm = this;
 
         vm.services = entity;
@@ -16,14 +16,34 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.customers = Customer.query({filter: 'id-is-null'});
-        $q.all([vm.services.$promise, vm.customers.$promise]).then(function() {
+        vm.user = null;
+
+        getAccount();
+
+        function getAccount() {
+            Principal.identity().then(function (user) {
+                var data = {user: user};
+                getAccountMapping(data.user.email);
+            });
+        }
+        function getAccountMapping(userEmail) {
+            AccountHelp.query({email : userEmail}, onSuccess, onError);
+            function onSuccess(data, headers) {
+                vm.user = data;
+            }
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
+        }
+
+        /*$q.all([vm.services.$promise, vm.customers.$promise]).then(function() {
             if (!vm.services.customer || !vm.services.customer.id) {
                 return $q.reject();
             }
             return Customer.get({id : vm.services.customer.id}).$promise;
         }).then(function(customer) {
             vm.customers.push(customer);
-        });
+        });*/
         vm.categories = Categories.query({filter: 'services-is-null'});
         $q.all([vm.services.$promise, vm.categories.$promise]).then(function() {
             if (!vm.services.categories || !vm.services.categories.id) {
@@ -44,6 +64,7 @@
 
         function save () {
             vm.isSaving = true;
+            vm.services.customer = vm.user;
             if (vm.services.id !== null) {
                 Services.update(vm.services, onSaveSuccess, onSaveError);
             } else {
